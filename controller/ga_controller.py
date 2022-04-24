@@ -3,7 +3,7 @@ from god import God
 
 
 def input(config: Configuration) -> None:
-    pass
+    god = God()
 
 
 def check_stop_criterion():

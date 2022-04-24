@@ -1,10 +1,12 @@
 from dataclasses import dataclass
 
+
 @dataclass
 class Configuration:
 
     function: str
-    mutation_date: float
+    function_terms: int
+    mutation_rate: float
     intial_population: int
     generation_amount: int
     search_interval_min: float
