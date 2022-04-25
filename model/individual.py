@@ -7,3 +7,4 @@ from dataclasses import dataclass
 class Individual:
 
     genes: List[Gene]
+    fitness: float = None
