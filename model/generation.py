@@ -11,7 +11,6 @@ class Generation:
     the_best: Individual = None
 
     def total_fitness(self) -> float:
-        print(sum([individual.fitness for individual in self.individuals]))
         return abs(sum([individual.fitness for individual in self.individuals]))
 
     def set_best(self):
