@@ -20,3 +20,6 @@ class Generation:
                     self.the_best = individual
             else:
                 self.the_best = individual
+
+    def get_best(self):
+        return max(self.individuals, key=lambda individual: individual.fitness)

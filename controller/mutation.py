@@ -14,7 +14,8 @@ class Multation:
         self, generation: Generation, config: Configuration
     ) -> Individual:
         qtd = (self.rate * len(generation.individuals)) / 100
-        i = 0
+        i = 1
+        
         while i < qtd:
             self._modify(
                 generation.individuals[random.randint(0, len(generation.individuals)-1)],

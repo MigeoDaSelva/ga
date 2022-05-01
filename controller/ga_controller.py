@@ -25,11 +25,10 @@ class GAController:
         self.generation = self.god.generate_init_generation(self.function)
 
         avaliator.avaliate_fitness(self.generation)
-        self.generation.set_best()
 
-        print(self.generation.the_best)
+        print(self.generation.get_best())
 
-        line["fitness"] = self.generation.the_best.fitness
+        line["fitness"] = self.generation.get_best().fitness
         line["generation"] = self.generation.number
 
         self._to_csv(line)
@@ -38,7 +37,6 @@ class GAController:
 
             self.generation = self.god.generate_next_generation(self.generation)
             avaliator.avaliate_fitness(self.generation)
-            self.generation.set_best()
 
             print(self.generation.the_best)
 

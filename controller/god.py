@@ -1,11 +1,12 @@
 from controller.crossover import Crossover
 from controller.mutation import Multation
 from controller.selection import Selection
+from dataclasses import dataclass, field
 from model.generation import Generation
 from model.individual import Individual
 from model.config import Configuration
+from controller.elitsm import Elitism
 from model.function import Function
-from dataclasses import dataclass
 from model.gene import Gene
 import random
 
@@ -17,6 +18,7 @@ class God:
     config: Configuration
     selection: Selection
     crossover: Crossover
+    elitism: Elitism = field(default=None)
 
     def generate_init_generation(self, function: Function) -> Generation:
         individuals = []
@@ -31,7 +33,8 @@ class God:
 
         print(f"Gerando geração {generation.number+1}...")
 
-        # Elitismo aqui: individuals.extend(self.eletism.get_elite())
+        if self.elitism:
+            individuals.extend(self.elitism.get_elite(generation))
 
         while len(individuals) < self.config.intial_population:
             father = self.selection.select(generation)

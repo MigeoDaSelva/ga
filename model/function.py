@@ -7,7 +7,6 @@ class Function:
 
     function: str
     qtd_variables: int
-    terms: List[str]
 
     def resolve(self, values: List[float]) -> float:
         func = self.function
