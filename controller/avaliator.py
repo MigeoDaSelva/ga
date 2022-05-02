@@ -10,4 +10,4 @@ class Avaliator:
     def avaliate_fitness(self, generation: Generation):
         for individual in generation.individuals:
             result = self.function.resolve([gene.value for gene in individual.genes])
-            individual.__setattr__("fitness", result)
+            individual.fitness = result
