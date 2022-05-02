@@ -82,8 +82,8 @@ def run_ga_deap():
      
     function = FunctionDeap(
         qtd_variables=config.qtd_variables,
-        bounds=[(-3, 3)] * config.qtd_variables,
-        function_name="gradient_descent" # himmelblau | five_variables | gradient_descent
+        bounds=[(-6, 6)] * config.qtd_variables,
+        function_name="himmelblau" # himmelblau | five_variables 
     )
 
     god = GodDeap(
