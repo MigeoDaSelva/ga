@@ -1,17 +1,24 @@
 import sys
-import re
+
 
 sys.path.append("./")
 
-import math
-from controller.god import God
-from model.function import Function
-from controller.elitsm import Elitism
-from model.config import Configuration
-from controller.ga_controller import GAController
-from controller.roulette_selection import RouletteSelection
-from controller.one_point_crossover import OnePointCrossover
 from controller.tournament_selection import TournamentSelection
+from controller.one_point_crossover import OnePointCrossover
+from controller.roulette_selection import RouletteSelection
+from controller.ga_deap_controller import GADeapController
+from controller.ga_controller import GAController
+from model.config_deap import ConfigurationDeap
+from model.function_deap import FunctionDeap
+from controller.god_deap import GodDeap
+from model.config import Configuration
+from controller.elitsm import Elitism
+from model.function import Function
+import plotly.graph_objects as go
+from controller.god import God
+import plotly.express as px
+import pandas as pd
+import re
 
 
 def find_qtd(variables: list) -> int:
@@ -24,7 +31,7 @@ def find_qtd(variables: list) -> int:
     return qtd
 
 
-if __name__ == "__main__":
+def run_ga():
 
     regex: re = re.compile(r"[x|y|z]")
 
@@ -59,3 +66,53 @@ if __name__ == "__main__":
 
     ga = GAController(god, function).run(config)
 
+def run_ga_deap():
+    
+    config = ConfigurationDeap(
+        mate= "two_point",
+        mutate="flip_bit",
+        select= "tournament",
+        tournsize = 5,
+        qtd_variables=2,
+        population_size=500,
+        no_of_generations=1000,
+        probabilityCrossed=0.5,
+        probabilityMutating=0.30
+    )
+     
+    function = FunctionDeap(
+        qtd_variables=config.qtd_variables,
+        bounds=[(-10, 10)] * config.qtd_variables,
+        function_name="gradient descent" # himmelblau or h1 or five_variables
+    )
+
+    god = GodDeap(
+        config=config,
+        function=function
+    )
+
+    ga = GADeapController(god=god, config=config)
+    ga.run()
+    ga.plot_result()
+
+
+def export_csv():
+    
+    df_log = pd.read_csv("./files/result.csv")
+    
+    fig = go.Figure()
+    fig.add_trace(go.Scatter(x=df_log['Generation'], y=df_log['Min'],
+                        mode='lines',
+                        name='Min'))
+    fig.add_trace(go.Scatter(x=df_log['Generation'], y=df_log['Max'],
+                        mode='lines',
+                        name='Max'))
+    fig.add_trace(go.Scatter(x=df_log['Generation'], y=df_log['Avg'],
+                        mode='lines',
+                        name='Avg'))
+    fig.show()
+    fig.write_image("./files/fig1.jpeg")
+
+if __name__ == "__main__":
+    run_ga_deap()
+    export_csv()
