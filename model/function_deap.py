@@ -29,9 +29,11 @@ class FunctionDeap:
             decoded_a = x[3]
             decoded_b = x[4]
             obj_function_value = ((decoded_x)**2 + decoded_y - 11)**2 - (decoded_z + (decoded_a)**2 - 7)**2 + decoded_b
-        elif self.function_name == "gradient descent":
-            obj_function_value = 3 * (1 - decoded_x)**2 * math.exp((-decoded_x)**2 - (decoded_y+1)**2) - 10 * (decoded_x/5 - decoded_x**3 - decoded_y**5) * math.exp((-decoded_x)**2 - decoded_y**2) - 1/3 * math.exp(-(decoded_x+1)**2 - decoded_y**2)
         
+        elif self.function_name == "gradient_descent":
+            print(decoded_x, decoded_y)
+            obj_function_value = 3 * (1 - decoded_x)**2 * math.exp(-decoded_x**2 - (decoded_y+1)**2) - 10 * (decoded_x/5 - decoded_x**3 - decoded_y**5) * math.exp(-decoded_x**2 - decoded_y**2) - 1/3 * math.exp(-(decoded_x+1)**2 - decoded_y**2)
+            print(obj_function_value)
         
         return [obj_function_value] 
     

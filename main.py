@@ -75,15 +75,15 @@ def run_ga_deap():
         tournsize = 5,
         qtd_variables=2,
         population_size=500,
-        no_of_generations=1000,
+        no_of_generations=200,
         probabilityCrossed=0.5,
         probabilityMutating=0.30
     )
      
     function = FunctionDeap(
         qtd_variables=config.qtd_variables,
-        bounds=[(-10, 10)] * config.qtd_variables,
-        function_name="gradient descent" # himmelblau or h1 or five_variables
+        bounds=[(-3, 3)] * config.qtd_variables,
+        function_name="gradient_descent" # himmelblau | five_variables | gradient_descent
     )
 
     god = GodDeap(
@@ -111,7 +111,6 @@ def export_csv():
                         mode='lines',
                         name='Avg'))
     fig.show()
-    fig.write_image("./files/fig1.jpeg")
 
 if __name__ == "__main__":
     run_ga_deap()
