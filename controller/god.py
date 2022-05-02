@@ -44,7 +44,7 @@ class God:
 
         mutation = Multation(self.config.mutation_rate)
 
-        mutation.generate_mutants(generation=generation, config=self.config)
+        mutation.generate_mutants_probability(generation=generation, config=self.config)
 
         return generation
 
@@ -56,6 +56,14 @@ class God:
                 self.config.search_interval_min, self.config.search_interval_max
             )
             b = random.random()
-            genes.append(Gene(a + b))
+
+            value = a + b
+
+            if value > self.config.search_interval_max:
+                value = self.config.search_interval_max
+            if value < self.config.search_interval_min:
+                value = self.config.search_interval_min
+
+            genes.append(Gene(value))
 
         return Individual(genes)
